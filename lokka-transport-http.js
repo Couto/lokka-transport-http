@@ -1,10 +1,10 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("lokkaTransport"));
+		module.exports = factory(require("LokkaTransport"));
 	else if(typeof define === 'function' && define.amd)
-		define(["lokkaTransport"], factory);
+		define(["LokkaTransport"], factory);
 	else {
-		var a = typeof exports === 'object' ? factory(require("lokkaTransport")) : factory(root["lokkaTransport"]);
+		var a = typeof exports === 'object' ? factory(require("LokkaTransport")) : factory(root["LokkaTransport"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
 })(this, function(__WEBPACK_EXTERNAL_MODULE_32__) {

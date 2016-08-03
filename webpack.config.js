@@ -12,7 +12,7 @@ module.exports = {
 
   externals: {
     'lokka': 'lokka',
-    'lokka/transport': 'lokkaTransport'
+    'lokka/transport': 'LokkaTransport'
   },
 
   plugins: [
