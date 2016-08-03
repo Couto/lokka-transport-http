@@ -10,6 +10,11 @@ module.exports = {
     libraryTarget: 'umd',
   },
 
+  externals: {
+    'lokka': 'lokka',
+    'lokka/transport': 'lokkaTransport'
+  },
+
   plugins: [
     new webpack.optimize.DedupePlugin()
   ],
