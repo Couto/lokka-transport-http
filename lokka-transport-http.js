@@ -549,6 +549,10 @@ var _transport = __webpack_require__(1);
 
 var _transport2 = _interopRequireDefault(_transport);
 
+var _isomorphicFetch = __webpack_require__(0);
+
+var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -557,12 +561,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global fetch */
 
-
-// In some envionment like in ReactNative, we don't need fetch at all.
-// Technically, this should be handle by 'isomorphic-fetch'.
-// But it's not happening. So this is the fix
-
-var fetchUrl = __webpack_require__(0);
 
 var Transport = exports.Transport = function (_LokkaTransport) {
   _inherits(Transport, _LokkaTransport);
@@ -578,7 +576,7 @@ var Transport = exports.Transport = function (_LokkaTransport) {
 
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Transport).call(this));
 
-    _this._httpOptions = Object.assign({}, options, { headers: {} });
+    _this._httpOptions = options;
     _this.endpoint = endpoint;
     return _this;
   }
@@ -597,8 +595,7 @@ var Transport = exports.Transport = function (_LokkaTransport) {
         credentials: 'include'
       };
 
-      Object.assign(options, this._httpOptions);
-      return options;
+      return Object.assign(options, this._httpOptions);
     }
   }, {
     key: 'send',
@@ -606,7 +603,7 @@ var Transport = exports.Transport = function (_LokkaTransport) {
       var payload = { query: query, variables: variables, operationName: operationName };
       var options = this._buildOptions(payload);
 
-      return fetchUrl(this.endpoint, options).then(function (response) {
+      return (0, _isomorphicFetch2.default)(this.endpoint, options).then(function (response) {
         // 200 is for success
         // 400 is for bad request
         if (response.status !== 200 && response.status !== 400) {
